@@ -2,14 +2,19 @@
 
 import numpy as np
 import tensorflow as tf
-import matplotlib.pyplot as plt
-from tensorflow.examples.tutorials.mnist import input_data
-
+import utils
 print('Import Done')
+mnist = utils.download_data()
 
-print('Download and Extract Mnist dataset')
-mnist = input_data.read_data_sets('data/', one_hot=True)
-print
-print('Type of \'mnist\' is {}'.format(type(mnist)))
-print('# of train data is {}'.format(mnist.train.num_examples))
-print('# of test  data is {}'.format(mnist.test.num_examples))
+print('=== Data ===')
+trainimg = mnist.train.images
+trainlabel = mnist.train.labels
+testimg = mnist.test.images
+testlabel = mnist.test.labels
+print('Train Img   {:12}, {:20}'.format(trainimg.shape, type(trainimg)))
+print('Train Label {:12}, {:20}'.format(trainlabel.shape, type(trainlabel)))
+print('Test  Img   {:12}, {:20}'.format(testimg.shape, type(testimg)))
+print('Test  Label {:12}, {:20}'.format(testlabel.shape, type(testlabel)))
+
+idx = 0
+# utils.show_image(trainimg[idx, :], trainlabel[idx, :], 'Train {}'.format(idx))
