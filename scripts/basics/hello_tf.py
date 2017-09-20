@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
-import numpy as np
 import tensorflow as tf
 
-import utils
+from libs import utils
 
 print("Package Loaded")
 
@@ -49,6 +48,6 @@ if __name__ == '__main__':
 
     # Multiplication
     print('== Mul ==')
-    muls = tf.mul(*input_data)
+    muls = tf.multiply(*input_data)
     muls_out = sess.run(muls)
     utils.print_tf(muls_out)

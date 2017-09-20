@@ -3,7 +3,7 @@
 import numpy as np
 import tensorflow as tf
 
-import utils
+from libs import utils
 
 print("Package Loaded")
 

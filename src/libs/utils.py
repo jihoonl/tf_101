@@ -23,14 +23,15 @@ def show_image(data, label, name):
     plt.show()
     print(t)
 
-def download_data():
-    mnist = input_data.read_data_sets('data/', one_hot=True)
 
-    if os.path.exists('data'):
-        return mnist
-    print('Download and Extract Mnist dataset')
-    print
-    print('Type of \'mnist\' is {}'.format(type(mnist)))
-    print('# of train data is {}'.format(mnist.train.num_examples))
-    print('# of test  data is {}'.format(mnist.test.num_examples))
+def download_data(debug=False):
+    datapath = os.environ.get('DATAPATH', 'data/')
+    mnist = input_data.read_data_sets(datapath, one_hot=True)
+
+    if debug:
+        print('Download and Extract Mnist dataset')
+        print
+        print('Type of \'mnist\' is {}'.format(type(mnist)))
+        print('# of train data is {}'.format(mnist.train.num_examples))
+        print('# of test  data is {}'.format(mnist.test.num_examples))
     return mnist
