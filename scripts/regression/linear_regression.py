@@ -55,7 +55,7 @@ if __name__ == '__main__':
     threshold = 8e-4
 
     # initializer
-    init = tf.initialize_all_variables()
+    init = tf.global_variables_initializer()
 
     # run
     with tf.Session() as sess:

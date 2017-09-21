@@ -2,7 +2,6 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from tensorflow.examples.tutorials.mnist import input_data
 
 
 def print_tf(xx):
@@ -24,14 +23,14 @@ def show_image(data, label, name):
     print(t)
 
 
-def download_data(debug=False):
+def download_data(input_data, debug=False):
     datapath = os.environ.get('DATAPATH', 'data/')
-    mnist = input_data.read_data_sets(datapath, one_hot=True)
+    data = input_data.read_data_sets(datapath, one_hot=True)
 
     if debug:
-        print('Download and Extract Mnist dataset')
+        print('Download and Extract data dataset')
         print
-        print('Type of \'mnist\' is {}'.format(type(mnist)))
-        print('# of train data is {}'.format(mnist.train.num_examples))
-        print('# of test  data is {}'.format(mnist.test.num_examples))
-    return mnist
+        print('Type of \'data\' is {}'.format(type(data)))
+        print('# of train data is {}'.format(data.train.num_examples))
+        print('# of test  data is {}'.format(data.test.num_examples))
+    return data

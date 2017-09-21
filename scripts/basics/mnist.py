@@ -3,8 +3,9 @@
 import numpy as np
 import tensorflow as tf
 from libs import utils
+from tensorflow.examples.tutorials.mnist import input_data
 print('Import Done')
-mnist = utils.download_data()
+mnist = utils.download_data(input_data)
 
 print('=== Data ===')
 trainimg = mnist.train.images
