@@ -2,7 +2,6 @@
 
 import tensorflow as tf
 # import matplotlib.pyplot as plt
-from tensorflow.examples.tutorials.mnist import input_data
 
 from libs import utils
 
@@ -14,7 +13,7 @@ def multilayer_perceptron(X, W, B):
 
 
 if __name__ == '__main__':
-    mnist = utils.download_data(input_data)
+    data = utils.get_mnist_data()
 
     # Network topology
     n_hidden_1 = 256
@@ -63,12 +62,6 @@ if __name__ == '__main__':
     training_epochs = 50
     batch_size = 100
     display_step = 1
-
-    data = {}
-    data['train'] = mnist.train
-    data['test'] = {}
-    data['test']['x'] = mnist.test.images
-    data['test']['y'] = mnist.test.labels
 
     utils.run(
         x,
