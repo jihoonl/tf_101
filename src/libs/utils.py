@@ -47,10 +47,40 @@ def get_mnist_data():
     return data
 
 
+def xavier_init(n_inputs, n_outputs, uniform=True):
+    """
+    Set the parameter initialization using the method prescribed.
+    This method is designed to keep the scale of the gradients roughly the same in all layers
+
+    Xavier Glorot and Yoshua Bengio (2010):
+        Understanding the difficulty of training deep feedforward
+        neural networks. International conference on artificial
+        intelligence and statistics
+
+    Args:
+        n_inputs: # of input nodes into each output.
+        n_outputs: # of output nodes for each input.
+        uniform: If true, use a uniform distribution,
+                 otherwise use a normal.
+    Returns:
+        An initializer.
+    """
+    if uniform:
+        initialization_constant = 6.0
+        init_range = tf.sqrt(initialization_constant / (n_inputs + n_outputs))
+        return tf.random_uniform_initializer(-init_range, init_range)
+    else:
+        # 3.0 gives us approximately the same limits as above since this repicks
+        # values greater than 2 standard deviations from the mean
+        initialization_constant = 3.0
+        stddev = tf.sqrt(initialization_constant / (n_inputs + n_outputs))
+        return tf.truncated_normal_initializer(stddev=stddev)
+
+
 def get_functions(pred, y, learning_rate=0.001):
     cost = tf.reduce_mean(
         tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))
-    optm = tf.train.AdamOptimizer(learning_rate=0.001).minimize(cost)
+    optm = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
     corr = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
     accr = tf.reduce_mean(tf.cast(corr, 'float'))
     return cost, optm, corr, accr
@@ -77,7 +107,8 @@ def run(x,
         display_step=4,
         additional_inputs=None):
     # Initialize
-    init = tf.initialize_all_variables()
+    init = tf.global_variables_initializer()
+    print('-- Start --')
 
     with tf.Session() as sess:
         sess.run(init)
