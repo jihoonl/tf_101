@@ -24,8 +24,17 @@ def show_image(data, label, name):
     print(t)
 
 
+def _get_datapath():
+    return os.environ.get('DATAPATH', 'data/')
+
+
+def save_path(postfix):
+    datapath = _get_datapath()
+    return os.path.join(datapath, postfix)
+
+
 def download_data(input_data, debug=False):
-    datapath = os.environ.get('DATAPATH', 'data/')
+    datapath = _get_datapath() 
     data = input_data.read_data_sets(datapath, one_hot=True)
 
     if debug:
